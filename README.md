@@ -15,12 +15,12 @@ person id, name, age:
   3, "Charlie", 30
 
 # Create a pizza table
-pizza name, cost, vegetarian (defaults_to no):
+pizza name, cost, vegetarian { defaults_to: no }:
   # Add a vegetarian pizza
   Vegetarian, 6.00, yes # strings don't need to be quoted
   
   # Make more some pizzas
-  name, cost (defaults_to 7.00):
+  name, cost { defaults_to: 7.00 }:
     Supreme, Italian, Meat Lovers, Hawaiian # insert lots of entries on one line
     
 # Create a likes table to represent who likes what pizzas
@@ -42,13 +42,13 @@ A list is just a bunch of comma separated values. Trailing commas are fine.
 
 __Example:__ ```"Hello", 3.14, true``` or ```"Coffee", "Soup",``` or ```"single-list", ```
 
-## Attribute Tuple
-An attribute tuple is a comma separated tuple of key-value pairs.
-It looks something like this: ```(attribute1 value1, attribute2 value2, ...)```
+## Attribute Hash
+An attribute hash is a comma separated list of key-value pairs, similar to dictionaries.
+It looks something like this: ```{ attribute1: value1, attribute2: value2, ... }```
 
 Values are optional.
 
-__Example:__ ```(key, nullable, defaults_to null)```
+__Example:__ ```{ key, nullable, defaults_to: null }```
 
 # Syntax
 ## Creating a Database
@@ -57,9 +57,9 @@ By convention, the name of the database is the name of the Porko file without th
 __Example:__ ```pizzeria.po``` will use pizzeria as its database name
 
 ## Creating a table
-Write the table name followed by a __list__ of column names. Each column name can be followed by an __attribute tuple__.
+Write the table name followed by a __list__ of column names. Each column name can be followed by an __attribute hash__.
 
-__Example:__ ```pizzeria id (primary_key), name (string, max_length 100), address ```
+__Example:__ ```pizzeria id { primary_key }, name { string, max_length: 100 }, address ```
 
 ## Inserting rows
 Standard way of inserting rows looks like this:
@@ -72,7 +72,7 @@ table-name column1, column2, column3: # need the colon at the end
 However, you can also specific which columns you want to specify values for, using default values for the rest:
 ```
   # ... in a table insert block
-  specific-column1 (optional attribute tuple), specific-column2 (optional attribute tuple):
+  specific-column1 { optional attribute hash }, specific-column2 { optional attribute hash }:
     value1, value2 # indented block
     value3, value4
 ```
